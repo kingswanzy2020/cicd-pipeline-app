@@ -64,7 +64,12 @@ pipeline {
                     docker.build("${DOCKER_IMAGE}:latest")
                     
                 sh 'docker images'
-                sh 'docker info | grep "Docker Root Dir"'    
+                sh 'docker info | grep "Docker Root Dir"'
+                sh '''
+                    docker context ls
+                    echo $DOCKER_HOST
+                    ls -la /var/run/docker.sock
+                    '''    
                 }
             }
         }                
