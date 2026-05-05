@@ -9,7 +9,7 @@ public class AppTest {
     @Test
     public void testGreetWithName() {
         App app = new App();
-        assertEquals("Hello, Wrong Name!", app.greet("Jenkins"));
+        assertEquals("Hello, Jenkins!", app.greet("Jenkins"));
     }
 
     // Verify greet() handles null input gracefully
