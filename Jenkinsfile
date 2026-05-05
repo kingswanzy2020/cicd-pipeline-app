@@ -64,7 +64,7 @@ pipeline {
                     docker.build("${DOCKER_IMAGE}:latest")
                     
                 sh 'docker images'
-                    
+                sh 'docker info | grep "Docker Root Dir"'    
                 }
             }
         }                
