@@ -62,6 +62,9 @@ pipeline {
                     docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
                     // Also tag as latest for convenience
                     docker.build("${DOCKER_IMAGE}:latest")
+                    
+                sh 'docker images'
+                    
                 }
             }
         }                
