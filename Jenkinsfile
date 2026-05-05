@@ -53,6 +53,17 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
-        }        
+        }
+        
+        stage('Docker Build') {
+            steps {
+                script {
+                    // Build image tagged with the Jenkins build number
+                    docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                    // Also tag as latest for convenience
+                    docker.build("${DOCKER_IMAGE}:latest")
+                }
+            }
+        }                
     }
 }
