@@ -36,5 +36,23 @@ pipeline {
                 }
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                // Inject SonarQube environment variables using the 'SonarQube' server config
+                withSonarQubeEnv('SonarQube') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                // Wait for SonarQube to return results, fail the build if quality gate fails
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }        
     }
 }
