@@ -66,4 +66,23 @@ pipeline {
             }
         }                
     }
+
+    post {
+        success {
+            // Send a green notification when the build passes
+            slackSend(
+                channel: '#jenkins-builds',
+                color: 'good',
+                message: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            )
+        }
+        failure {
+            // Send a red notification when the build fails
+            slackSend(
+                channel: '#jenkins-builds',
+                color: 'danger',
+                message: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            )
+        }
+    }    
 }
